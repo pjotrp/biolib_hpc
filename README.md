@@ -1,7 +1,7 @@
 # BioLib/HPC
 
 BioLib/HPC is a bioinformatics library using high-performance
-computing for anaysis of high-throughput data.
+computing for analysis of high-throughput data/Big Data.
 
 ## Installing BioLib
 
