@@ -8,8 +8,8 @@ d_debug = ''
 
 desc "Build Biolib/HPC-GFF3"
 file 'testgff3' => dfiles do
-  
-  p "dmd #{d_debug} #{d_test} -oftestgff3 #{dfiles.join(' ')}"
+  print "dmd #{d_debug} #{d_test} -oftestgff3 #{dfiles.join(' ')}"
   sh "dmd #{d_debug} #{d_test} -oftestgff3 #{dfiles.join(' ')}"
+  sh './testgff3'
 end
 
