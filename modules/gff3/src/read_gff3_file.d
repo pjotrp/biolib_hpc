@@ -8,6 +8,8 @@ import std.stdio;
 import std.path;
 import std.string;
 
+import gff3fasta;
+
 /**
  * This is the basic iterator wich goes over GFF3 records. After  
  * completing the records it can continue parsing FASTA sequences.
@@ -21,11 +23,11 @@ class ReadGFF3 {
   }
 
   string buf;
-  bool hit_fasta = false;
+  bool has_fasta = false;
 
   @property bool empty( ) { 
     if (buf == "##FASTA") {
-      hit_fasta = true;
+      has_fasta = true;
       return true;
     }
     return f.eof;
@@ -35,6 +37,10 @@ class ReadGFF3 {
     do {
       buf = strip(f.readln()); 
     } while (buf == "" && !empty());  // skip empty lines
+  }
+
+  GFF3Fasta fasta_seqs() {
+    return new GFF3Fasta(f,has_fasta);
   }
 }
 
@@ -46,5 +52,10 @@ unittest {
   auto reader = new ReadGFF3(fn);
   foreach(rec ; reader) {
     writeln(rec);
+  }
+  if (reader.has_fasta) {
+    foreach(seq ; reader.fasta_seqs) {
+      writeln(seq[0]);
+    }
   }
 }
