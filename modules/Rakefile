@@ -1,0 +1,25 @@
+#! /usr/bin/rake
+
+MIN_D_VERSION = 2.053
+
+require 'rake/clean'
+
+def error s
+  $stderr.print "ERROR: "+s
+  exit 2
+end
+
+desc "Test of build system"
+task :test_build do
+  dmd = `dmd`.split(/\n/)[0]
+  print dmd,"\n"
+  if dmd =~ /(\w+) D Compiler v(\d+[\.]\d+)/
+    # DMD32 D Compiler v2.053
+    if $2.to_f < MIN_D_VERSION
+     error "Install D > #{MIN_D_VERSION}"
+    end
+  else
+    error "Can not find D compiler!"
+  end
+  print "Success! Your build system should work.\n"
+end

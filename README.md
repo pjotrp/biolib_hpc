@@ -14,10 +14,10 @@ a recent edition of the [D compiler][D] is needed:
 
     DMD32 D Compiler v2.053
 
-After D installation, try the build and test script (which needs
-[rake][rake]):
+After D installation, try the 'integration' build and test script
+(which also needs [rake][rake]):
 
-    ./test_all.sh
+    ./test_build.sh
 
 ## Platforms
 
