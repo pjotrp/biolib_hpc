@@ -3,14 +3,14 @@
 BioLib/HPC is a bioinformatics library using high-performance
 computing for analysis of high-throughput data/Big Data.
 
-## Installing BioLib
+## Installing BioLib/HPC
 
 NYA
 
-## Compiling BioLib
+## Compiling BioLib/HPC
 
-To compile BioLib, in addition to the standard  a recent edition of
-the [D compiler][D] is needed:
+To compile BioLib, in addition to the standard gcc GNU software stack,
+a recent edition of the [D compiler][D] is needed:
 
     DMD32 D Compiler v2.053
 
