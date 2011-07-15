@@ -2,6 +2,8 @@
 # Rake file for building BioLib/HPC-GFF3
 #
 
+require 'rake/clean'
+
 dfiles = Dir.glob("./*.d")
 d_test = '-unittest'
 d_debug = ''
@@ -12,4 +14,18 @@ file 'testgff3' => dfiles do
   sh "dmd #{d_debug} #{d_test} -oftestgff3 #{dfiles.join(' ')}"
   sh './testgff3'
 end
+
+task :default => 'testgff3'
+
+# ---- Cleanups
+
+#Unix files
+CLEAN.include('*.o')
+CLEAN.include('*.dep')
+CLEAN.include('*.deps')
+#Win32 files
+CLEAN.include('*.obj','*.exe','*.map')
+clean_exe_list = Dir.glob("*").find_all { |fn| File.executable?(fn) and !File.directory?(fn) }
+CLEAN.include(clean_exe_list)
+
 
