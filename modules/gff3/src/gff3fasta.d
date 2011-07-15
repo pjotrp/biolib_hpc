@@ -22,7 +22,7 @@ class GFF3Fasta {
   string seq;
 
   @property bool empty( ) { 
-    return f.eof || !has_fasta;
+    return next_id == null || f.eof || !has_fasta;
   }
   @property auto front() { return new Tuple!(string,string)(id,seq); }
   void popFront() { 
