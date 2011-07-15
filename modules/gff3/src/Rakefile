@@ -1,0 +1,15 @@
+# 
+# Rake file for building BioLib/HPC-GFF3
+#
+
+dfiles = Dir.glob("./*.d")
+d_test = '-unittest'
+d_debug = ''
+
+desc "Build Biolib/HPC-GFF3"
+file 'testgff3' => dfiles do
+  
+  p "dmd #{d_debug} #{d_test} -oftestgff3 #{dfiles.join(' ')}"
+  sh "dmd #{d_debug} #{d_test} -oftestgff3 #{dfiles.join(' ')}"
+end
+
