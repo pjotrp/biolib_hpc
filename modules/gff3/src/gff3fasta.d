@@ -18,7 +18,7 @@ class GFF3Fasta {
     this.has_fasta = has_fasta;
   }
 
-  string id, next_id = null;
+  string id, next_id = ">first";
   string seq;
 
   @property bool empty( ) { 
@@ -26,7 +26,7 @@ class GFF3Fasta {
   }
   @property auto front() { return new Tuple!(string,string)(id,seq); }
   void popFront() { 
-    if (next_id != null) {
+    if (next_id != ">first") {
       id = next_id;
       next_id = null;
     } 
@@ -39,6 +39,7 @@ class GFF3Fasta {
     // make sure it is an id!
     if (id[0] != '>')
       throw new Exception("FASTA corrupt " ~ id);
+    writeln("***",id,"---",next_id);
     seq = "";
     string buf;
     do {
@@ -48,6 +49,7 @@ class GFF3Fasta {
         return;
       }
       seq ~= buf;
+      writeln(buf);
     } while (!empty()); 
   }
 
