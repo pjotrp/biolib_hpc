@@ -1,16 +1,20 @@
 BioLib/HPC-gff3lib: The fastest Big Data GFF3 parser. 
 
 GFF3 records are iterated for their features, without loading all data
-into memory. Bindings are available for Perl, Python and Ruby.
+into memory. Bindings will be available for Perl, Python and Ruby.
 
-One optimization trick it to parse GFF3 optimistically by blocks. Most
-GFF3 files are organized into blocks of genome sections and contigs.
-Cross referencing is within those blocks, so loading block by block in
-memory allows fast resolving. Less organized files, meaning lots of
-distant cross-referencing, may benefit from further caching, which may
-be implemented later.
+One optimization trick is to parse GFF3 'optimistically' by blocks.
+Most GFF3 files are organized into blocks of genome sections and
+contigs.  Cross referencing is normally within those blocks, so
+loading block by block in memory allows fast resolving. Less organized
+files, meaning lots of distant cross-referencing, may benefit from
+further caching, which may be implemented later.
 
-(note: this module is under development)
+Note: this module was started at the pre-BOSC code fest Vienna July
+2011, following up on the recent Ruby and Python GFF3 parsers. It is
+under development and not released.
 
-BioLib/HPC-gff3lib is published under the BioLib/HPC License (the liberal BSD License)
+BioLib/HPC-gff3lib is published under the BioLib/HPC License 
+(the liberal BSD License)
+
 Copyright (C) 2011 Pjotr Prins <pjotr.prins@thebird.nl>
