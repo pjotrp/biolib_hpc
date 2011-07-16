@@ -56,13 +56,12 @@ class GFF3Fasta {
       current_seq ~= buf;
     } while (!f.eof()); 
     lastline = null;
-    writeln(current_id);
   }
   auto count = 0;
   private bool eof() { return !has_fasta || f.eof(); }
   // D iterator functions for 'foreach'
   // the foreach iteration sequence is repeating: empty, front, popFront!
   @property bool empty( ) { return current_id == null; }
-  @property auto front() { return new Tuple!(string,string)(current_id,current_seq); }
+  @property auto front() { return new Tuple!(string,string)(current_id[1..$],current_seq); }
   void popFront() { read_rec(); }
 }

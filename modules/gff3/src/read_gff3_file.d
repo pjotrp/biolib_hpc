@@ -48,14 +48,15 @@ unittest {
   writeln("Unit test " ~ __FILE__);
   alias std.path.join join;
   auto fn = dirname(__FILE__) ~ sep ~ join("..","test","data","test.gff3");
-  writeln("  - reading CSV " ~ fn);
+  // auto fn = "/export/data/gwp/m_hapla.WS226.annotations.gff3";
+  writeln("  - reading " ~ fn);
   auto reader = new ReadGFF3(fn);
   foreach(rec ; reader) {
     writeln(rec);
   }
   if (reader.has_fasta) {
     foreach(seq ; reader.fasta_seqs) {
-      writeln(seq[0]);
+      writeln(seq[0][0]);
     }
   }
 }
