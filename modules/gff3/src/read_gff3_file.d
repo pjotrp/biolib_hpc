@@ -28,7 +28,8 @@ class ReadGFF3 {
 
   string readln() { 
     line_number++;
-    return strip(f.readln()); 
+    auto res = f.readln();
+    return (res.length>1? res[0..$-1] : res); 
   };
 
   @property bool eof() { return f.eof; }
@@ -44,7 +45,8 @@ class ReadGFF3 {
   void popFront() { 
     do {
       line_number++;
-      buf = readln(); 
+      buf = readln();
+      // auto rec = split(buf,"\t");
     } while (buf == "" && !empty());  // skip empty lines
   }
 
