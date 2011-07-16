@@ -41,12 +41,11 @@ class ReadGFF3 {
     }
     return eof;
   }
-  @property ref string front() { return buf; }
+  @property auto front() { return buf; }
   void popFront() { 
     do {
       line_number++;
       buf = readln();
-      // auto rec = split(buf,"\t");
     } while (buf == "" && !empty());  // skip empty lines
   }
 
