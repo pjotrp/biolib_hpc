@@ -9,13 +9,14 @@ d_test = '-unittest'
 d_debug = ''
 
 desc "Build Biolib/HPC-GFF3's gff3parse"
-file "gff3parse" => dfiles do
-  sh "dmd #{d_debug} #{d_test} -ofgff3parse #{dfiles.join(' ')}"
+file "gff3parse" => dfiles + ['./app/gff3parse.d'] do
+  sh "dmd #{d_debug} -ofgff3parse ./app/gff3parse.d #{dfiles.join(' ')}"
+  sh "./gff3parse --help"
 end
 
 desc "test testgff3"
 file 'testgff3' => dfiles do
-  sh "dmd #{d_debug} #{d_test} -oftestgff3 #{dfiles.join(' ')}"
+  sh "dmd #{d_debug} #{d_test} -oftestgff3 ./test/main.d #{dfiles.join(' ')}"
   sh './testgff3'
 end
 
