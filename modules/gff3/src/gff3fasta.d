@@ -8,6 +8,8 @@ import std.stdio;
 import std.string;
 import std.typecons;
 
+import read_gff3_file;
+
 /**
  * Helper class for reading the FASTA records related to a GFF3 file. It uses a 
  * File object, expecting it to point to the first record. 
@@ -15,12 +17,10 @@ import std.typecons;
 
 class GFF3Fasta {
 
-  private File f;
-  immutable bool has_fasta;
+  private ReadGFF3 gffreader;
 
-  this(File f, bool has_fasta) {
-    this.f = f;
-    this.has_fasta = has_fasta;
+  this(ReadGFF3 gffreader) {
+    this.gffreader = gffreader;
     current_seq.reserve(2048);
     read_rec(); // read the first record
   }
@@ -39,7 +39,7 @@ class GFF3Fasta {
     if (lastline != null) 
       current_id = lastline;
     else 
-      current_id = strip(f.readln()); 
+      current_id = gffreader.readln(); 
 
     // make sure it is an current_id!
     if (current_id[0] != '>')
@@ -48,17 +48,17 @@ class GFF3Fasta {
     current_seq = "";
     string buf;
     do {
-      buf = strip(f.readln());
+      buf = gffreader.readln();
       if (buf.length > 0 && buf[0] == '>') {
         lastline = buf;
         return; // done reading rec!
       }
       current_seq ~= buf;
-    } while (!f.eof()); 
+    } while (!gffreader.eof()); 
     lastline = null;
   }
   auto count = 0;
-  private bool eof() { return !has_fasta || f.eof(); }
+  private bool eof() { return !gffreader.has_fasta || gffreader.eof(); }
   // D iterator functions for 'foreach'
   // the foreach iteration sequence is repeating: empty, front, popFront!
   @property bool empty( ) { return current_id == null; }

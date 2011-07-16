@@ -23,24 +23,33 @@ class ReadGFF3 {
   }
 
   string buf;
+  ulong line_number = 0;
   bool has_fasta = false;
+
+  string readln() { 
+    line_number++;
+    return strip(f.readln()); 
+  };
+
+  @property bool eof() { return f.eof; }
 
   @property bool empty( ) { 
     if (buf == "##FASTA") {
       has_fasta = true;
       return true;
     }
-    return f.eof;
+    return eof;
   }
   @property ref string front() { return buf; }
   void popFront() { 
     do {
-      buf = strip(f.readln()); 
+      line_number++;
+      buf = readln(); 
     } while (buf == "" && !empty());  // skip empty lines
   }
 
   GFF3Fasta fasta_seqs() {
-    return new GFF3Fasta(f,has_fasta);
+    return new GFF3Fasta(this);
   }
 }
 
@@ -52,11 +61,11 @@ unittest {
   writeln("  - reading " ~ fn);
   auto reader = new ReadGFF3(fn);
   foreach(rec ; reader) {
-    writeln(rec);
+    writeln(reader.line_number,":\t",rec);
   }
   if (reader.has_fasta) {
     foreach(seq ; reader.fasta_seqs) {
-      writeln(seq[0][0]);
+      writeln(reader.line_number,":\t",seq[0][0]);
     }
   }
 }
