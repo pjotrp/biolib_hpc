@@ -21,13 +21,18 @@ class GFF3Fasta {
   this(File f, bool has_fasta) {
     this.f = f;
     this.has_fasta = has_fasta;
+    current_seq.reserve(2048);
     read_rec(); // read the first record
   }
 
-  string current_id = null; 
+  string current_id; 
   string current_seq;
   string lastline = null;  // last line read
 
+  /* 
+   * read_rec sets current_id (null at eof), and current_seq. It uses lastline
+   * to buffer the FASTA tag of the next record - so there are no seeks
+   */
   private void read_rec() {
     if (eof()) { current_id = null; return; };
 
@@ -55,12 +60,9 @@ class GFF3Fasta {
   }
   auto count = 0;
   private bool eof() { return !has_fasta || f.eof(); }
-  @property bool empty( ) { if(count++ > 20) return true; writeln("empty", current_id); return current_id == null; }
-  @property auto front() { writeln("front"); return new Tuple!(string,string)(current_id,current_seq); }
-
-  void popFront() { 
-    writeln("popFront");
-    read_rec();
-  }
-
+  // D iterator functions for 'foreach'
+  // the foreach iteration sequence is repeating: empty, front, popFront!
+  @property bool empty( ) { return current_id == null; }
+  @property auto front() { return new Tuple!(string,string)(current_id,current_seq); }
+  void popFront() { read_rec(); }
 }

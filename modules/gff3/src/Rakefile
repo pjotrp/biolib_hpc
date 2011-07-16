@@ -14,7 +14,11 @@ file 'testgff3' => dfiles do
   sh './testgff3'
 end
 
-task :default => 'testgff3'
+task :default => [ :test, 'testgff3' ]
+
+task :test do
+  sh './testgff3'
+end
 
 # ---- Cleanups
 
