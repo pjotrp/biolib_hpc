@@ -8,13 +8,18 @@ dfiles = Dir.glob("./*.d")
 d_test = '-unittest'
 d_debug = ''
 
-desc "Build Biolib/HPC-GFF3"
+desc "Build Biolib/HPC-GFF3's gff3parse"
+file "gff3parse" => dfiles do
+  sh "dmd #{d_debug} #{d_test} -ofgff3parse #{dfiles.join(' ')}"
+end
+
+desc "test testgff3"
 file 'testgff3' => dfiles do
   sh "dmd #{d_debug} #{d_test} -oftestgff3 #{dfiles.join(' ')}"
   sh './testgff3'
 end
 
-task :default => [ 'testgff3', :test ]
+task :default => [ 'testgff3', :test, 'gff3parse' ]
 
 task :test do
   sh './testgff3'
