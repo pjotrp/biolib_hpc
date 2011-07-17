@@ -36,7 +36,7 @@ int main(string[] args) {
       auto seqid = get_seq_id(rec);
       if (seqid) {
         writeln(reader.line_number, seqid);
-        assert(fields(rec).length==9, to!string(fields(rec).length));
+        // assert(fields(rec).length==9, to!string(fields(rec).length));
       }
     }
     if (reader.has_fasta) {

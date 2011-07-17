@@ -14,3 +14,9 @@ real    0m16.488s
 user    0m16.321s
 sys     0m0.164s
 
+Use the stack instead:
+
+real    0m8.986s
+user    0m8.881s
+sys     0m0.104s
+
