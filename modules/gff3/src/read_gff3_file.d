@@ -13,7 +13,8 @@ import gff3line;
 
 /**
  * This is the basic iterator wich goes over GFF3 records. After  
- * completing the records it can continue parsing FASTA sequences.
+ * completing the records it can continue parsing FASTA sequences by 
+ * delegating to the FASTA reader GFF3Fasta.
  */
 
 class ReadGFF3 {

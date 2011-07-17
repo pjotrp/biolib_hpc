@@ -8,3 +8,9 @@ real    0m20.463s
 user    0m20.173s
 sys     0m0.268s
 
+Reserve space on heap:
+
+real    0m16.488s
+user    0m16.321s
+sys     0m0.164s
+
