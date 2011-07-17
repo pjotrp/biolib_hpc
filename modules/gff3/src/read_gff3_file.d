@@ -9,6 +9,7 @@ import std.path;
 import std.string;
 
 import gff3fasta;
+import gff3line;
 
 /**
  * This is the basic iterator wich goes over GFF3 records. After  
@@ -62,11 +63,22 @@ unittest {
   writeln("  - reading " ~ fn);
   auto reader = new ReadGFF3(fn);
   foreach(rec ; reader) {
-    writeln(reader.line_number,":\t",rec);
+    // writeln(reader.line_number,":\t",rec);
+    if (reader.line_number == 32) {
+      auto seqid = get_seq_id(rec);
+      // writeln(reader.line_number,":\t",seqid);
+      assert(seqid,"Contig1");
+    }
   }
   if (reader.has_fasta) {
+    ulong[] lines;
+    string [] ids;
     foreach(seq ; reader.fasta_seqs) {
-      writeln(reader.line_number,":\t",seq[0][0]);
+      lines ~= reader.line_number;
+      ids ~= seq[0][0];
+      // writeln(reader.line_number,":\t",seq[0][0]);
     }
+    assert(lines == [126,135]);
+    assert(ids == ["test01","test02"]);
   }
 }
