@@ -1,0 +1,10 @@
+Adding timings, so they are attached to source versions
+
+command:
+
+  time ./gff3parse /export/data/gwp/m_hapla.WS226.annotations.gff3 > /dev/null
+
+real    0m20.463s
+user    0m20.173s
+sys     0m0.268s
+
